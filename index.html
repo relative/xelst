@@ -1,108 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="termynal.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Control the light</title>
+  </head>
 
-<head>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
-  <link rel="stylesheet" href="termynal.css" />
-  <link rel="stylesheet" href="style.css" />
-  <title>Control the light</title>
-</head>
-
-<body>
-  <div class="jumbotron">
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-4">Control my light</h1>
+        <hr class="my-4" />
+        <a
+          class="btn btn-outline-primary btn-lg"
+          href="https://twitch.tv/XELST"
+          target="_blank"
+          role="button"
+        >
+          Watch Now on Twitch
+        </a>
+      </div>
+    </div>
     <div class="container">
-      <h1 class="display-4">Control my light</h1>
-      <hr class="my-4" />
-      <a class="btn btn-outline-primary btn-lg" href="https://twitch.tv/XELST" target="_blank" role="button">
-        Watch Now on Twitch
-      </a>
-    </div>
-  </div>
-  <div class="container">
-    <div class="inpr mb-3">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Name</span>
+      <div class="inpr mb-3">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Name</span>
+          </div>
+          <input
+            id="input-name"
+            type="text"
+            class="form-control"
+            aria-label="name"
+            maxlength="10"
+            minlength="1"
+            value="a"
+          />
         </div>
-        <input id="input-name" type="text" class="form-control" aria-label="name" maxlength="10" minlength="1"
-          value="a" />
+        <a id="btn-connect" href="#" class="btn btn-primary btn-md">
+          Connect
+        </a>
       </div>
-      <a id="btn-connect" href="#" class="btn btn-primary btn-md">
-        Connect
-      </a>
-    </div>
-    <div class="inpr mb-3">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">TTS</span>
+      <div class="inpr mb-3">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">TTS</span>
+          </div>
+          <input
+            id="input-tts"
+            type="text"
+            class="form-control"
+            aria-label="TTS"
+            maxlength="100"
+            minlength="1"
+            value="Hello!"
+          />
         </div>
-        <input id="input-text" type="text" class="form-control" aria-label="TTS" maxlength="100" minlength="1"
-          value="Hello!" />
+        <a id="btn-tts" href="#" class="btn btn-primary btn-md">
+          Send
+        </a>
       </div>
-      <a id="btn-send" href="#" class="btn btn-primary btn-md">
-        Send
-      </a>
-    </div>
 
-    <div class="row">
-      <div class="col-sm">
-        <div class="color-preview" id="color-preview" style="background: rgb(255, 0, 255);">
-          &nbsp;
-        </div>
-      </div>
-      <div class="col-sm">
-        <div class="sliders">
-          <div class="sl">
-            <input type="range" min="1" max="255" value="255" class="slider slider-red" id="color-red" />
-            <div class="inp input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">r</span>
-              </div>
-              <input id="input-red" type="text" class="form-control" aria-label="red" />
-            </div>
-          </div>
-          <div class="sl">
-            <input type="range" min="1" max="255" value="0" class="slider slider-green" id="color-green" />
-            <div class="inp input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">g</span>
-              </div>
-              <input id="input-green" type="text" class="form-control" aria-label="green" />
-            </div>
-          </div>
-          <div class="sl">
-            <input type="range" min="1" max="255" value="255" class="slider slider-blue" id="color-blue" />
-            <div class="inp input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">b</span>
-              </div>
-              <input id="input-blue" type="text" class="form-control" aria-label="blue" />
-            </div>
-          </div>
-          <div class="sl">
-            <a id="btn-rc" href="#" class="btn btn-info btn-sm">
-              randomize color
-            </a>
+      <div class="row">
+        <div class="col-sm">
+          <div
+            class="color-preview"
+            id="color-preview"
+            style="background: rgb(255, 0, 255);"
+          >
+            &nbsp;
           </div>
         </div>
+        <div class="col-sm">
+          <div class="sliders">
+            <div class="sl">
+              <input
+                type="range"
+                min="1"
+                max="255"
+                value="255"
+                class="slider slider-red"
+                id="color-red"
+              />
+              <div class="inp input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">r</span>
+                </div>
+                <input
+                  id="input-red"
+                  type="text"
+                  class="form-control"
+                  aria-label="red"
+                />
+              </div>
+            </div>
+            <div class="sl">
+              <input
+                type="range"
+                min="1"
+                max="255"
+                value="0"
+                class="slider slider-green"
+                id="color-green"
+              />
+              <div class="inp input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">g</span>
+                </div>
+                <input
+                  id="input-green"
+                  type="text"
+                  class="form-control"
+                  aria-label="green"
+                />
+              </div>
+            </div>
+            <div class="sl">
+              <input
+                type="range"
+                min="1"
+                max="255"
+                value="255"
+                class="slider slider-blue"
+                id="color-blue"
+              />
+              <div class="inp input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">b</span>
+                </div>
+                <input
+                  id="input-blue"
+                  type="text"
+                  class="form-control"
+                  aria-label="blue"
+                />
+              </div>
+            </div>
+            <div class="sl">
+              <a id="btn-rc" href="#" class="btn btn-info btn-sm">
+                randomize color
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="termynal"
+        data-termynal
+        data-ty-typeDelay="40"
+        data-ty-lineDelay="700"
+        style="
+          width: 1110px;
+          min-height: 117.594px;
+          max-height: 306px;
+          overflow-x: hidden;
+          overflow-y: scroll;
+        "
+      >
+        <span data-ty="input" data-ty-prompt="▲">waiting for input</span>
+      </div>
+      <div class="mt-3">
+        <div id="twitch-embed"></div>
       </div>
     </div>
-    <div id="termynal" data-termynal data-ty-typeDelay="40" data-ty-lineDelay="700"
-      style="width: 1110px; min-height: 117.594px; max-height: 306px; overflow-x: hidden; overflow-y: scroll;">
-      <span data-ty="input" data-ty-prompt="▲">waiting for input</span>
-    </div>
-    <div class="mt-3">
-      <div id="twitch-embed"></div>
-    </div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/msgpack-lite/0.1.26/msgpack.min.js"
-    integrity="sha256-xnDLLYKxKFwLEmQK1SkZ9I7IwmjdeURGtXUk/0WnTRo=" crossorigin="anonymous"></script>
-  <script src="https://embed.twitch.tv/embed/v1.js"></script>
-  <script src="termynal.js"></script>
-  <script src="main.js"></script>
-</body>
-
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/msgpack-lite/0.1.26/msgpack.min.js"
+      integrity="sha256-xnDLLYKxKFwLEmQK1SkZ9I7IwmjdeURGtXUk/0WnTRo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://embed.twitch.tv/embed/v1.js"></script>
+    <script src="termynal.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>

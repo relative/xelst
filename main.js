@@ -1,5 +1,4 @@
-;
-(() => {
+;(() => {
   /*
   # nginx config
   server {
@@ -49,7 +48,7 @@
 
   function sendToServer() {
     if (!window.connected) {
-      log('not connected to server!')
+      return log('not connected to server!')
     }
     ws.send(
       'c',
@@ -58,13 +57,12 @@
       parseInt(inputBlue.value)
     )
   }
-
   function connect(e) {
     if (window.ws && window.ws.readyState === WebSocket.OPEN) {
       window.ws.close() // close existing ws if it exists
     }
     if (e) e.preventDefault()
-    if (window.connected) return;
+    if (window.connected) return
 
     let ws = new WebSocket(URL)
 
@@ -103,15 +101,17 @@
     }
     window.ws = ws
   }
-
-  function send(e) {
+  function tts(e) {
     if (e) e.preventDefault()
-    if (!window.connected) return;
-    if (!window.ws) return;
-    let text = inputText.value
-    ws.send('s', text);
-  }
+    if (!window.connected) {
+      return log('not connected to server!')
+    }
+    // tts
+    let $el = document.getElementById('input-tts')
+    let val = $el.value
 
+    ws.send('s', val)
+  }
   function randomColor(e) {
     e.preventDefault()
     let r = (256 * Math.random()) | 0
@@ -174,8 +174,9 @@
   window.connect = connect
   window.term = terminal
   window.log = log
+
   document.getElementById('btn-connect').onclick = connect
-  document.getElementById('btn-send').onclick = send
+  document.getElementById('btn-tts').onclick = tts
 
   document.getElementById('btn-rc').onclick = randomColor
   new Twitch.Embed('twitch-embed', {
