@@ -53,15 +53,17 @@
       parseInt(inputBlue.value)
     )
   }
-  function connect(name) {
+  function connect(e) {
+    if (e) e.preventDefault()
+
     let ws = new WebSocket(URL)
+    name = document.getElementById('input-name').value
+    if (name.length > 10) {
+      name = name.substr(0, 9)
+    }
     window.localStorage.setItem('xelst_name', name)
     ws.onopen = () => {
       log('connected to server')
-      let name = document.getElementById('input-name').value
-      if (name.length > 10) {
-        name = name.substr(0, 9)
-      }
       ws.send('j', name)
       window.connected = true
       if (window.prevConnected) {
@@ -90,7 +92,20 @@
     }
     window.ws = ws
   }
-
+  function randomColor(e) {
+    e.preventDefault()
+    let r = (256 * Math.random()) | 0
+    let g = (256 * Math.random()) | 0
+    let b = (256 * Math.random()) | 0
+    inputRed.value = r
+    sliderRed.value = r
+    inputGreen.value = g
+    sliderGreen.value = g
+    inputBlue.value = b
+    sliderBlue.value = b
+    updateColor()
+    sendToServer()
+  }
   let map = [
     [sliderRed, inputRed],
     [sliderBlue, inputBlue],
@@ -138,7 +153,9 @@
   window.connect = connect
   window.term = terminal
   window.log = log
+  document.getElementById('btn-connect').onclick = connect
 
+  document.getElementById('btn-rc').onclick = randomColor
   new Twitch.Embed('twitch-embed', {
     width: '100%',
     height: 860,
