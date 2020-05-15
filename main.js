@@ -19,6 +19,13 @@
   }
   */
   window.connected = false
+  const inputRed = document.getElementById('input-red')
+  const inputGreen = document.getElementById('input-green')
+  const inputBlue = document.getElementById('input-blue')
+
+  const sliderRed = document.getElementById('color-red')
+  const sliderGreen = document.getElementById('color-green')
+  const sliderBlue = document.getElementById('color-blue')
   const URL = 'wss://krone_rgb.pit.red'
   function log(...args) {
     console.log(
@@ -38,9 +45,6 @@
     if (!window.connected) {
       log('not connected to server!')
     }
-    const inputRed = document.getElementById('input-red')
-    const inputGreen = document.getElementById('input-green')
-    const inputBlue = document.getElementById('input-blue')
     ws.send(
       'c',
       parseInt(inputRed.value),
@@ -77,24 +81,26 @@
     window.ws = ws
   }
 
-  const inputRed = document.getElementById('input-red')
-  const inputGreen = document.getElementById('input-green')
-  const inputBlue = document.getElementById('input-blue')
-
-  const sliderRed = document.getElementById('color-red')
-  const sliderGreen = document.getElementById('color-green')
-  const sliderBlue = document.getElementById('color-blue')
   let map = [
     [sliderRed, inputRed],
     [sliderBlue, inputBlue],
     [sliderGreen, inputGreen],
   ]
-
+  const previewEl = document.getElementsByClassName('color-preview')[0]
+  function updateColor() {
+    const clrs = [
+      parseInt(inputRed.value),
+      parseInt(inputGreen.value),
+      parseInt(inputBlue.value),
+    ]
+    previewEl.style = `background:rgb(${clrs.join(',')});`
+  }
   map.forEach((m) => {
     let slider = m[0]
     let input = m[1]
     slider.oninput = () => {
       input.value = slider.value
+      updateColor()
     }
     input.oninput = () => {
       let val = parseInt(input.value.replace(/\D+/g, ''))
@@ -104,6 +110,7 @@
       input.value = val.toString()
 
       slider.value = val
+      updateColor()
     }
     slider.onchange = () => {
       sendToServer()
