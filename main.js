@@ -19,6 +19,7 @@
   }
   */
   window.connected = false
+  window.prevConnected = false
   const inputRed = document.getElementById('input-red')
   const inputGreen = document.getElementById('input-green')
   const inputBlue = document.getElementById('input-blue')
@@ -62,6 +63,10 @@
       }
       ws.send('j', name)
       window.connected = true
+      if (window.prevConnected) {
+        sendToServer()
+        // send previous colors to server
+      }
     }
     ws._send = ws.send
     ws.send = (...args) => {
@@ -77,6 +82,7 @@
     ws.onclose = (e) => {
       log('websocket closed! code', e.code, e.reason)
       window.connected = false
+      window.prevConnected = true
       // try reconnecting
       log('attempting to reconnect!')
       connect()
