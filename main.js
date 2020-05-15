@@ -1,4 +1,5 @@
-;(() => {
+;
+(() => {
   /*
   # nginx config
   server {
@@ -20,6 +21,8 @@
   */
   window.connected = false
   window.prevConnected = false
+
+  const inputText = document.getElementById('input-text')
   const inputRed = document.getElementById('input-red')
   const inputGreen = document.getElementById('input-green')
   const inputBlue = document.getElementById('input-blue')
@@ -28,6 +31,7 @@
   const sliderGreen = document.getElementById('color-green')
   const sliderBlue = document.getElementById('color-blue')
   const URL = 'wss://krone_rgb.pit.red'
+
   function log(...args) {
     console.log(
       `%cr%cg%cb\t%c${args.join(' ')}`,
@@ -42,6 +46,7 @@
     el.innerText = args.join(' ')
     document.getElementById('termynal').appendChild(el)
   }
+
   function sendToServer() {
     if (!window.connected) {
       log('not connected to server!')
@@ -53,11 +58,13 @@
       parseInt(inputBlue.value)
     )
   }
+
   function connect(e) {
     if (window.ws && window.ws.readyState === WebSocket.OPEN) {
       window.ws.close() // close existing ws if it exists
     }
     if (e) e.preventDefault()
+    if (window.connected) return;
 
     let ws = new WebSocket(URL)
 
@@ -96,6 +103,15 @@
     }
     window.ws = ws
   }
+
+  function send(e) {
+    if (e) e.preventDefault()
+    if (!window.connected) return;
+    if (!window.ws) return;
+    let text = inputText.value
+    ws.send('s', text);
+  }
+
   function randomColor(e) {
     e.preventDefault()
     let r = (256 * Math.random()) | 0
@@ -116,6 +132,7 @@
     [sliderGreen, inputGreen],
   ]
   const previewEl = document.getElementsByClassName('color-preview')[0]
+
   function updateColor() {
     const clrs = [
       parseInt(inputRed.value),
@@ -158,6 +175,7 @@
   window.term = terminal
   window.log = log
   document.getElementById('btn-connect').onclick = connect
+  document.getElementById('btn-send').onclick = send
 
   document.getElementById('btn-rc').onclick = randomColor
   new Twitch.Embed('twitch-embed', {
