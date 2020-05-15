@@ -54,9 +54,13 @@
     )
   }
   function connect(e) {
+    if (window.ws && window.ws.readyState === WebSocket.OPEN) {
+      window.ws.close() // close existing ws if it exists
+    }
     if (e) e.preventDefault()
 
     let ws = new WebSocket(URL)
+
     name = document.getElementById('input-name').value
     if (name.length > 10) {
       name = name.substr(0, 9)
