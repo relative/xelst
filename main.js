@@ -77,6 +77,9 @@
     ws.onclose = (e) => {
       log('websocket closed! code', e.code, e.reason)
       window.connected = false
+      // try reconnecting
+      log('attempting to reconnect!')
+      connect()
     }
     window.ws = ws
   }
