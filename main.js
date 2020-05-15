@@ -55,6 +55,7 @@
   }
   function connect(name) {
     let ws = new WebSocket(URL)
+    window.localStorage.setItem('xelst_name', name)
     ws.onopen = () => {
       log('connected to server')
       let name = document.getElementById('input-name').value
@@ -143,4 +144,10 @@
     height: 860,
     channel: 'XELST',
   })
+
+  if (window.localStorage.getItem('xelst_name')) {
+    document.getElementById('input-name').value = window.localStorage.getItem(
+      'xelst_name'
+    )
+  }
 })()
